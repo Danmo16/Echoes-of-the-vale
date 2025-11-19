@@ -1,0 +1,91 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class MainMenu : MonoBehaviour
+{
+    [Header("Referencias de Botones")]
+    public UnityEngine.UI.Button playButton;
+    public UnityEngine.UI.Button optionsButton;
+    public UnityEngine.UI.Button quitButton;
+    public UnityEngine.UI.Button creditsButton; // Opcional
+
+    [Header("Paneles")]
+    public GameObject optionsPanel;
+
+    [Header("Configuración")]
+    public string gameSceneName = "SampleScene"; // Nombre de la escena de juego
+
+    private void Start()
+    {
+        // Configurar listeners de botones
+        if (playButton != null)
+            playButton.onClick.AddListener(OnPlayButtonClicked);
+
+        if (optionsButton != null)
+            optionsButton.onClick.AddListener(OnOptionsButtonClicked);
+
+        if (quitButton != null)
+            quitButton.onClick.AddListener(OnQuitButtonClicked);
+
+        if (creditsButton != null)
+            creditsButton.onClick.AddListener(OnCreditsButtonClicked);
+
+        // Asegurar que el panel de opciones esté desactivado al inicio
+        if (optionsPanel != null)
+            optionsPanel.SetActive(false);
+    }
+
+    /// <summary>
+    /// Carga la escena del juego cuando se presiona el botón Play
+    /// </summary>
+    public void OnPlayButtonClicked()
+    {
+        SceneManager.LoadScene(gameSceneName);
+    }
+
+    /// <summary>
+    /// Muestra el panel de opciones
+    /// </summary>
+    public void OnOptionsButtonClicked()
+    {
+        if (optionsPanel != null)
+        {
+            optionsPanel.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// Cierra el panel de opciones (llamado desde OptionsMenu)
+    /// </summary>
+    public void CloseOptionsPanel()
+    {
+        if (optionsPanel != null)
+        {
+            optionsPanel.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Maneja el botón de créditos (opcional)
+    /// </summary>
+    public void OnCreditsButtonClicked()
+    {
+        // Aquí puedes agregar lógica para mostrar créditos
+        Debug.Log("Créditos del juego");
+    }
+
+    /// <summary>
+    /// Cierra la aplicación cuando se presiona el botón Quit
+    /// </summary>
+    public void OnQuitButtonClicked()
+    {
+        Debug.Log("Saliendo del juego...");
+        
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
+}
+
