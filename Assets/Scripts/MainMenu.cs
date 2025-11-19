@@ -19,20 +19,51 @@ public class MainMenu : MonoBehaviour
     {
         // Configurar listeners de botones
         if (playButton != null)
+        {
             playButton.onClick.AddListener(OnPlayButtonClicked);
+            Debug.Log("PlayButton configurado");
+        }
+        else
+        {
+            Debug.LogWarning("PlayButton no está asignado en MainMenu!");
+        }
 
         if (optionsButton != null)
+        {
             optionsButton.onClick.AddListener(OnOptionsButtonClicked);
+            Debug.Log("OptionsButton configurado");
+        }
+        else
+        {
+            Debug.LogWarning("OptionsButton no está asignado en MainMenu!");
+        }
 
         if (quitButton != null)
+        {
             quitButton.onClick.AddListener(OnQuitButtonClicked);
+            Debug.Log("QuitButton configurado");
+        }
+        else
+        {
+            Debug.LogWarning("QuitButton no está asignado en MainMenu!");
+        }
 
         if (creditsButton != null)
+        {
             creditsButton.onClick.AddListener(OnCreditsButtonClicked);
+            Debug.Log("CreditsButton configurado");
+        }
 
         // Asegurar que el panel de opciones esté desactivado al inicio
         if (optionsPanel != null)
+        {
             optionsPanel.SetActive(false);
+            Debug.Log("OptionsPanel desactivado al inicio");
+        }
+        else
+        {
+            Debug.LogWarning("OptionsPanel no está asignado en MainMenu!");
+        }
     }
 
     /// <summary>
@@ -48,9 +79,16 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void OnOptionsButtonClicked()
     {
+        Debug.Log("Botón de Opciones presionado");
+        
         if (optionsPanel != null)
         {
             optionsPanel.SetActive(true);
+            Debug.Log("Panel de opciones activado");
+        }
+        else
+        {
+            Debug.LogError("OptionsPanel no está asignado en MainMenu!");
         }
     }
 
