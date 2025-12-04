@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsPanel;
 
     [Header("Configuración")]
-    public string gameSceneName = "SampleScene"; // Nombre de la escena de juego
+    public string gameSceneName = "SampleSceneJuanDavid"; // Nombre de la escena de juego
 
     private void Start()
     {
@@ -71,7 +71,11 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void OnPlayButtonClicked()
     {
-        SceneManager.LoadScene(gameSceneName);
+        Debug.Log($"Cargando escena: {gameSceneName}");
+        
+        // Cargar la escena en modo Single para reemplazar completamente la escena actual
+        // LoadSceneMode.Single descarga automáticamente la escena anterior, incluyendo su cámara
+        SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
     }
 
     /// <summary>
