@@ -11,14 +11,14 @@ public class MenuButtonStyler : MonoBehaviour
     public Button[] buttonsToStyle;
 
     [Header("Configuración de Estilo")]
-    [Tooltip("Color principal del botón (gris oscuro)")]
-    public Color buttonColor = new Color(0.25f, 0.25f, 0.25f, 1f); // Gris oscuro
+    [Tooltip("Color principal del botón (gris claro)")]
+    public Color buttonColor = new Color(0.6f, 0.6f, 0.6f, 1f); // Gris claro (definitivamente gris, no negro)
     
     [Tooltip("Color cuando se pasa el mouse")]
-    public Color highlightedColor = new Color(0.35f, 0.35f, 0.35f, 1f); // Gris medio
+    public Color highlightedColor = new Color(0.7f, 0.7f, 0.7f, 1f); // Gris más claro
     
     [Tooltip("Color al hacer clic")]
-    public Color pressedColor = new Color(0.15f, 0.15f, 0.15f, 1f); // Gris muy oscuro
+    public Color pressedColor = new Color(0.5f, 0.5f, 0.5f, 1f); // Gris medio
     
     [Tooltip("Color del borde del botón")]
     public Color borderColor = new Color(0.6f, 0.6f, 0.6f, 1f); // Gris claro
@@ -43,7 +43,17 @@ public class MenuButtonStyler : MonoBehaviour
 
     private void Start()
     {
-        ApplyStyles();
+        // Aplicar estilos con un pequeño delay para asegurar que todo esté inicializado
+        Invoke(nameof(ApplyStyles), 0.1f);
+    }
+    
+    private void OnEnable()
+    {
+        // Reaplicar estilos cuando el objeto se activa
+        if (Application.isPlaying)
+        {
+            Invoke(nameof(ApplyStyles), 0.1f);
+        }
     }
 
     /// <summary>
@@ -74,7 +84,15 @@ public class MenuButtonStyler : MonoBehaviour
     /// </summary>
     private void StyleButton(Button button)
     {
-        // Configurar colores del botón
+        // IMPORTANTE: Primero configurar el Image a blanco para que ColorTint funcione
+        Image buttonImage = button.GetComponent<Image>();
+        if (buttonImage != null)
+        {
+            // El Image debe estar en blanco para que el ColorTint del Button funcione correctamente
+            buttonImage.color = Color.white;
+        }
+
+        // Configurar colores del botón usando ColorBlock
         ColorBlock colors = button.colors;
         colors.normalColor = buttonColor;
         colors.highlightedColor = highlightedColor;
@@ -84,15 +102,17 @@ public class MenuButtonStyler : MonoBehaviour
         colors.fadeDuration = transitionDuration;
         button.colors = colors;
 
-        // Configurar transición de color
+        // Configurar transición de color (ColorTint multiplica el color del Image)
         button.transition = Selectable.Transition.ColorTint;
-
-        // Configurar el Image del botón
-        Image buttonImage = button.GetComponent<Image>();
+        
+        // Forzar actualización del color aplicando el normalColor inmediatamente
         if (buttonImage != null)
         {
+            // Aplicar el color directamente también como respaldo
             buttonImage.color = buttonColor;
         }
+        
+        Debug.Log($"MenuButtonStyler: Botón '{button.name}' configurado - Color: {buttonColor}");
 
         // Configurar el texto del botón
         Text buttonText = button.GetComponentInChildren<Text>();
@@ -154,11 +174,11 @@ public class MenuButtonStyler : MonoBehaviour
     [ContextMenu("Aplicar Estilo de Imagen")]
     public void ApplyImageStyle()
     {
-        // Valores basados en la imagen: botones gris oscuro con borde claro
-        buttonColor = new Color(0.25f, 0.25f, 0.25f, 1f);
-        highlightedColor = new Color(0.35f, 0.35f, 0.35f, 1f);
-        pressedColor = new Color(0.15f, 0.15f, 0.15f, 1f);
-        borderColor = new Color(0.6f, 0.6f, 0.6f, 1f);
+        // Valores actualizados: botones gris claro (definitivamente gris, no negro)
+        buttonColor = new Color(0.6f, 0.6f, 0.6f, 1f);
+        highlightedColor = new Color(0.7f, 0.7f, 0.7f, 1f);
+        pressedColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+        borderColor = new Color(0.8f, 0.8f, 0.8f, 1f); // Borde más claro
         borderWidth = 2f;
         textColor = Color.white;
         fontSize = 24;
@@ -166,7 +186,7 @@ public class MenuButtonStyler : MonoBehaviour
         transitionDuration = 0.1f;
         
         ApplyStyles();
-        Debug.Log("MenuButtonStyler: Estilo de imagen aplicado");
+        Debug.Log("MenuButtonStyler: Estilo de imagen aplicado (gris claro)");
     }
 }
 
