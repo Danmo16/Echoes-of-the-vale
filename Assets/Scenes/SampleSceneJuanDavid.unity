@@ -948,7 +948,7 @@ Transform:
   m_GameObject: {fileID: 428460889}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5529392, y: -0.44074753, z: -0.44074762, w: -0.55293894}
-  m_LocalPosition: {x: 780.6764, y: 2.2999997, z: 716.38794}
+  m_LocalPosition: {x: 779.99, y: 2.3, z: 719.37}
   m_LocalScale: {x: 47.051456, y: 47.051456, z: 47.05144}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -976,12 +976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc94640d01f71648a825d070f0316b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpiderAnimationController
-  spiderAnimator: {fileID: 0}
-  animationParameterName: PlayAnimation
-  parameterType: 0
-  playOnStart: 1
-  animationName: 
-  startAnimation: 2
 --- !u!1 &507915740 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3651071122019166435, guid: 92f071b6596b857478d4f353c97df348, type: 3}
