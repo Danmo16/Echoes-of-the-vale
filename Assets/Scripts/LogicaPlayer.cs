@@ -23,5 +23,8 @@ public class LogicaPleyer : MonoBehaviour
         // Rotación y movimiento
         transform.Rotate(0, x * velocidadRotacion * Time.deltaTime, 0);
         transform.Translate(0, 0, y * velocidadMovimiento * Time.deltaTime);
+
+        anim.SetFloat("VelX", x);
+        anim.SetFloat("VelY", y);
     }
 }
