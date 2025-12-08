@@ -12,11 +12,17 @@ public class LogicaPlayer : MonoBehaviour
     public float fuerzaSalto = 8f;
     public bool puedoSaltar;
 
+    public float velocidadInicial;
+    public float velocidadAgachado;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         puedoSaltar = false;
         anim = GetComponent<Animator>();
+
+        velocidadInicial = velocidadMovimiento;
+        velocidadAgachado = velocidadMovimiento * 0.5f;
     }
 
     void FixedUpdate()
@@ -45,6 +51,20 @@ public class LogicaPlayer : MonoBehaviour
                 rb.AddForce(new Vector3(0, fuerzaSalto, 0), ForceMode.Impulse);
             }
             anim.SetBool("tocoSuelo", true);
+
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                anim.SetBool("agachado", true);
+                velocidadMovimiento = velocidadAgachado;
+            }
+            else
+            {
+                anim.SetBool("agachado", false);
+                velocidadMovimiento = velocidadInicial;
+            }
+
+            anim.SetBool("tocoSuelo", true);
+
         }
         else
         {
