@@ -15,6 +15,10 @@ public class LogicaPlayer : MonoBehaviour
     public float velocidadInicial;
     public float velocidadAgachado;
 
+    public bool estoyAtacando;
+    public bool avanzoSolo;
+    public float impulsoGolpe = 10f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,9 +31,17 @@ public class LogicaPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Rotación y movimiento
-        transform.Rotate(0, x * velocidadRotacion * Time.deltaTime, 0);
-        transform.Translate(0, 0, y * velocidadMovimiento * Time.deltaTime);
+        // Rotaciï¿½n y movimiento
+        if (!estoyAtacando)
+        {
+            transform.Rotate(0, x * velocidadRotacion * Time.deltaTime, 0);
+            transform.Translate(0, 0, y * velocidadMovimiento * Time.deltaTime);
+        }
+
+        if (avanzoSolo)
+        {
+            rb.linearVelocity = transform.forward * impulsoGolpe;
+        }
     }
 
     // Update is called once per frame
@@ -39,28 +51,37 @@ public class LogicaPlayer : MonoBehaviour
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
 
+        if (Input.GetKeyDown(KeyCode.Return) && puedoSaltar && !estoyAtacando)
+        {
+            anim.SetTrigger("golpeo");
+            estoyAtacando = true;
+        }
+
         anim.SetFloat("VelX", x);
         anim.SetFloat("VelY", y);
 
         // Salto
         if (puedoSaltar)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (!estoyAtacando)
             {
-                anim.SetBool("salte", true);
-                rb.AddForce(new Vector3(0, fuerzaSalto, 0), ForceMode.Impulse);
-            }
-            anim.SetBool("tocoSuelo", true);
+                if(Input.GetKeyDown(KeyCode.Space))
+            {
+                    anim.SetBool("salte", true);
+                    rb.AddForce(new Vector3(0, fuerzaSalto, 0), ForceMode.Impulse);
+                }
+                anim.SetBool("tocoSuelo", true);
 
-            if (Input.GetKey(KeyCode.LeftControl))
-            {
-                anim.SetBool("agachado", true);
-                velocidadMovimiento = velocidadAgachado;
-            }
-            else
-            {
-                anim.SetBool("agachado", false);
-                velocidadMovimiento = velocidadInicial;
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    anim.SetBool("agachado", true);
+                    velocidadMovimiento = velocidadAgachado;
+                }
+                else
+                {
+                    anim.SetBool("agachado", false);
+                    velocidadMovimiento = velocidadInicial;
+                }
             }
 
             anim.SetBool("tocoSuelo", true);
@@ -77,5 +98,20 @@ public class LogicaPlayer : MonoBehaviour
     {
         anim.SetBool("tocoSuelo", false);
         anim.SetBool("salte", false);
+    }
+
+    public void DejoDeGolpear()
+    {
+        estoyAtacando = false;
+    }
+
+    public void AvanzoSolo()
+    {
+        avanzoSolo = true;
+    }
+
+    public void DejoDeAvanzar()
+    {
+        avanzoSolo = false;
     }
 }

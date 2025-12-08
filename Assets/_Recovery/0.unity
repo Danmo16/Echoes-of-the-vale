@@ -345,7 +345,7 @@ MonoBehaviour:
   puedoSaltar: 0
   velocidadInicial: 0
   velocidadAgachado: 0
-  estoyAtacando: 1
+  estoyAtacando: 0
   avanzoSolo: 0
   impulsoGolpe: 10
 --- !u!1 &92033094
