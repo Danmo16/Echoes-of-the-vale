@@ -14,7 +14,7 @@ public class LogicaObjetivosEsferas : MonoBehaviour
     void Start()
     {
         numDeObjetivos = GameObject.FindGameObjectsWithTag("objetivo").Length;
-        textoMision.text = "Obtén las esferas rojas" +
+        textoMision.text = "Obtén las esferas hechas de slime" +
                            "\n Restantes: " + numDeObjetivos;
     }
 
@@ -29,7 +29,7 @@ public class LogicaObjetivosEsferas : MonoBehaviour
         {
             Destroy(col.transform.parent.gameObject);
             numDeObjetivos--;
-            textoMision.text = "Obtén las esferas rojas" +
+            textoMision.text = "Obtén las esferas hechas de slime" +
                                "\n Restantes: " + numDeObjetivos;
 
             if (numDeObjetivos <= 0)
