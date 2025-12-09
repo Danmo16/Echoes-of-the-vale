@@ -13,6 +13,14 @@ public class Enemigo1 : MonoBehaviour
 
     public GameObject target;
 
+    void onTriggerEnter(Collider coll)
+    {
+        if(coll.CompareTag("arma"))
+        {
+            print("Daño");
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
