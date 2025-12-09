@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsPanel;
 
     [Header("Configuración")]
-    public string gameSceneName = "SampleSceneJuanDavid"; // Nombre de la escena de juego
+    public string gameSceneName = "SampleScene"; // Nombre de la escena de juego
 
     private void Start()
     {
