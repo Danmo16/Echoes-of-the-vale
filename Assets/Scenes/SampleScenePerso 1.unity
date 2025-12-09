@@ -1481,7 +1481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemigo1
   rutina: 0
   cronometro: 0
-  ani: {fileID: 427566012}
+  ani: {fileID: 0}
   angulo: {x: 0, y: 0, z: 0, w: 0}
   grado: 0
   atacando: 0
@@ -1489,11 +1489,6 @@ MonoBehaviour:
 --- !u!4 &427566011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2199628841774520173, guid: 61b3e3801d56a3f429556c96ea2f07d6, type: 3}
-  m_PrefabInstance: {fileID: 427566008}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &427566012 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5217009034759064855, guid: 61b3e3801d56a3f429556c96ea2f07d6, type: 3}
   m_PrefabInstance: {fileID: 427566008}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &428460889
@@ -1705,25 +1700,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &504973978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 504973975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 906fecff3f1ff57458c01848379eadcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemigo1
-  rutina: 0
-  cronometro: 0
-  ani: {fileID: 0}
-  angulo: {x: 0, y: 0, z: 0, w: 0}
-  grado: 0
-  atacando: 0
-  target: {fileID: 0}
 --- !u!1 &507915740 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3651071122019166435, guid: 92f071b6596b857478d4f353c97df348, type: 3}
@@ -4713,9 +4689,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 92f071b6596b857478d4f353c97df348, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 504973978}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 92f071b6596b857478d4f353c97df348, type: 3}
       insertIndex: -1
       addedObject: {fileID: 504973977}

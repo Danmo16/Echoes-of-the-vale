@@ -27,6 +27,8 @@ public class LogicaPlayer : MonoBehaviour
 
         velocidadInicial = velocidadMovimiento;
         velocidadAgachado = velocidadMovimiento * 0.5f;
+
+        estoyAtacando = false;
     }
 
     void FixedUpdate()
