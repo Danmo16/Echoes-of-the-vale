@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LogicaPlayer : MonoBehaviour
 {
-    public int velCorrer;
+    public int velCorrer = 8;
 
     public float velocidadMovimiento = 5.0f;
     public float velocidadRotacion = 200.0f;
@@ -57,7 +57,7 @@ public class LogicaPlayer : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && y > 0 && puedoSaltar && !estoyAtacando)
         {
-            velocidadMovimiento = velCorrer;
+            velocidadMovimiento = 10.0f;
             anim.SetBool("correr", true);
         }
         else
