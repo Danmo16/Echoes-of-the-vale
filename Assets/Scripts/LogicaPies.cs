@@ -17,7 +17,10 @@ public class LogicaPies : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        logicaPlayer.puedoSaltar = true;
+        if (other.gameObject.activeSelf)
+        {
+            logicaPlayer.puedoSaltar = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
