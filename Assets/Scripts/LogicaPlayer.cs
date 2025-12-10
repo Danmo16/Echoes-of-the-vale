@@ -21,10 +21,20 @@ public class LogicaPlayer : MonoBehaviour
     public bool avanzoSolo;
     public float impulsoGolpe = 10f;
 
-    public float da\u00f1oAlEnemigo = 10f;
+    public float dañoAlEnemigo = 10f;
     private Enemigo1 enemigoEnRango;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // ====== SISTEMA DE AUDIO ======
+    // AudioSource separados para mejor control
+    public AudioSource audioSourceMovimiento;  // Para caminar/correr (loop)
+    public AudioSource audioSourceAcciones;    // Para saltar/golpear (una vez)
+    
+    [Header("Sonidos")]
+    public AudioClip sonidoCaminar;
+    public AudioClip sonidoCorrer;
+    public AudioClip sonidoSaltar;
+    public AudioClip sonidoGolpear;
+
     void Start()
     {
         puedoSaltar = false;
@@ -34,11 +44,33 @@ public class LogicaPlayer : MonoBehaviour
         velocidadAgachado = velocidadMovimiento * 0.5f;
 
         estoyAtacando = false;
+
+        // Crear AudioSources si no existen
+        ConfigurarAudioSources();
+    }
+
+    void ConfigurarAudioSources()
+    {
+        // AudioSource para movimiento (loop)
+        if (audioSourceMovimiento == null)
+        {
+            audioSourceMovimiento = gameObject.AddComponent<AudioSource>();
+        }
+        audioSourceMovimiento.loop = true;
+        audioSourceMovimiento.playOnAwake = false;
+
+        // AudioSource para acciones (una vez)
+        if (audioSourceAcciones == null)
+        {
+            audioSourceAcciones = gameObject.AddComponent<AudioSource>();
+        }
+        audioSourceAcciones.loop = false;
+        audioSourceAcciones.playOnAwake = false;
     }
 
     void FixedUpdate()
     {
-        // Rotaci�n y movimiento
+        // Rotación y movimiento
         if (!estoyAtacando)
         {
             transform.Rotate(0, x * velocidadRotacion * Time.deltaTime, 0);
@@ -51,21 +83,23 @@ public class LogicaPlayer : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Leer las teclas (W, A, S, D)
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
 
+        // CORRER
         if (Input.GetKey(KeyCode.LeftShift) && y > 0 && puedoSaltar && !estoyAtacando)
         {
             velocidadMovimiento = 10.0f;
             anim.SetBool("correr", true);
+            
+            // Reproducir sonido de correr
+            ReproducirSonidoMovimiento(sonidoCorrer);
         }
         else
         {
-            // Si suelto Shift o dejo de avanzar, apago la animación
             anim.SetBool("correr", false);
 
             // Lógica de Agachado vs Caminar Normal
@@ -79,53 +113,101 @@ public class LogicaPlayer : MonoBehaviour
                 velocidadMovimiento = velocidadInicial;
                 anim.SetBool("agachado", false);
             }
+
+            // CAMINAR - Reproducir sonido solo si se está moviendo
+            if (puedoSaltar && (Mathf.Abs(x) > 0.1f || Mathf.Abs(y) > 0.1f) && !estoyAtacando)
+            {
+                ReproducirSonidoMovimiento(sonidoCaminar);
+            }
+            else
+            {
+                DetenerSonidoMovimiento();
+            }
         }
 
         // Actualizar animaciones
         anim.SetFloat("VelX", x);
         anim.SetFloat("VelY", y);
 
-        // Ataque
+        // ATAQUE
         if (Input.GetKeyDown(KeyCode.Return) && puedoSaltar && !estoyAtacando)
         {
             anim.SetTrigger("golpeo");
             estoyAtacando = true;
+            
+            // Reproducir sonido de golpe
+            ReproducirSonidoAccion(sonidoGolpear);
         }
 
-
-        // Salto
+        // SALTO
         if (puedoSaltar)
         {
             if (!estoyAtacando)
             {
                 if(Input.GetKeyDown(KeyCode.Space))
-            {
+                {
                     anim.SetBool("salte", true);
                     rb.AddForce(new Vector3(0, fuerzaSalto, 0), ForceMode.Impulse);
+                    
+                    // Reproducir sonido de salto
+                    ReproducirSonidoAccion(sonidoSaltar);
+                    DetenerSonidoMovimiento();
                 }
                 anim.SetBool("tocoSuelo", true);
 
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
                     anim.SetBool("agachado", true);
-                    // velocidadMovimiento = velocidadAgachado;
                 }
                 else
                 {
                     anim.SetBool("agachado", false);
-                    // velocidadMovimiento = velocidadInicial;
                 }
             }
 
             anim.SetBool("tocoSuelo", true);
-
         }
         else
         {
             EstoyCayendo();
+            DetenerSonidoMovimiento();
         }
-
     }
+
+    // ====== MÉTODOS DE AUDIO ======
+    
+    // Para sonidos continuos (caminar, correr) - usa audioSourceMovimiento
+    void ReproducirSonidoMovimiento(AudioClip clip)
+    {
+        if (clip == null || audioSourceMovimiento == null) return;
+
+        // Si no está reproduciendo o es un clip diferente, cambiarlo
+        if (!audioSourceMovimiento.isPlaying || audioSourceMovimiento.clip != clip)
+        {
+            audioSourceMovimiento.clip = clip;
+            audioSourceMovimiento.Play();
+        }
+    }
+
+    // Detener sonidos de movimiento
+    void DetenerSonidoMovimiento()
+    {
+        if (audioSourceMovimiento != null && audioSourceMovimiento.isPlaying)
+        {
+            audioSourceMovimiento.Stop();
+        }
+    }
+
+    // Para sonidos de una sola vez (saltar, golpear) - usa audioSourceAcciones
+    void ReproducirSonidoAccion(AudioClip clip)
+    {
+        if (clip != null && audioSourceAcciones != null)
+        {
+            audioSourceAcciones.PlayOneShot(clip);
+        }
+    }
+
+    // ====== MÉTODOS EXISTENTES ======
 
     public void EstoyCayendo()
     {
@@ -168,8 +250,8 @@ public class LogicaPlayer : MonoBehaviour
     {
         if (enemigoEnRango != null && estoyAtacando)
         {
-            enemigoEnRango.RecibirDa\u00f1o(da\u00f1oAlEnemigo);
-            print("Jugador golpe\u00f3 al esqueleto");
+            enemigoEnRango.RecibirDaño(dañoAlEnemigo);
+            print("Jugador golpeó al esqueleto");
         }
     }
 }
