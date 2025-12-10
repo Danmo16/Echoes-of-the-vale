@@ -51,42 +51,44 @@ public class LogicaPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && puedoSaltar && !estoyAtacando)
-        {
-            velocidadMovimiento = velCorrer;
-            if (y > 0)
-            {
-                anim.SetBool("correr", true);
-            }
-            else
-            {
-                anim.SetBool("correr", false);
-            }
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.LeftControl))
-            {
-                velocidadMovimiento = velocidadAgachado;
-            }
-            else if (puedoSaltar)
-            {
-                velocidadMovimiento = velocidadInicial;
-            }
-        }
-
         // Leer las teclas (W, A, S, D)
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
 
+        if (Input.GetKey(KeyCode.LeftShift) && y > 0 && puedoSaltar && !estoyAtacando)
+        {
+            velocidadMovimiento = velCorrer;
+            anim.SetBool("correr", true);
+        }
+        else
+        {
+            // Si suelto Shift o dejo de avanzar, apago la animación
+            anim.SetBool("correr", false);
+
+            // Lógica de Agachado vs Caminar Normal
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                velocidadMovimiento = velocidadAgachado;
+                anim.SetBool("agachado", true);
+            }
+            else
+            {
+                velocidadMovimiento = velocidadInicial;
+                anim.SetBool("agachado", false);
+            }
+        }
+
+        // Actualizar animaciones
+        anim.SetFloat("VelX", x);
+        anim.SetFloat("VelY", y);
+
+        // Ataque
         if (Input.GetKeyDown(KeyCode.Return) && puedoSaltar && !estoyAtacando)
         {
             anim.SetTrigger("golpeo");
             estoyAtacando = true;
         }
 
-        anim.SetFloat("VelX", x);
-        anim.SetFloat("VelY", y);
 
         // Salto
         if (puedoSaltar)
