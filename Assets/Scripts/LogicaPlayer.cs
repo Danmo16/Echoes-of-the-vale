@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class LogicaPlayer : MonoBehaviour
 {
+    public int velCorrer;
+
     public float velocidadMovimiento = 5.0f;
     public float velocidadRotacion = 200.0f;
 
@@ -49,6 +51,30 @@ public class LogicaPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.LeftShift) && puedoSaltar && !estoyAtacando)
+        {
+            velocidadMovimiento = velCorrer;
+            if (y > 0)
+            {
+                anim.SetBool("correr", true);
+            }
+            else
+            {
+                anim.SetBool("correr", false);
+            }
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                velocidadMovimiento = velocidadAgachado;
+            }
+            else if (puedoSaltar)
+            {
+                velocidadMovimiento = velocidadInicial;
+            }
+        }
+
         // Leer las teclas (W, A, S, D)
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
@@ -77,12 +103,12 @@ public class LogicaPlayer : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
                     anim.SetBool("agachado", true);
-                    velocidadMovimiento = velocidadAgachado;
+                    // velocidadMovimiento = velocidadAgachado;
                 }
                 else
                 {
                     anim.SetBool("agachado", false);
-                    velocidadMovimiento = velocidadInicial;
+                    // velocidadMovimiento = velocidadInicial;
                 }
             }
 
