@@ -21,6 +21,9 @@ public class LogicaPlayer : MonoBehaviour
     public bool avanzoSolo;
     public float impulsoGolpe = 10f;
 
+    public float da\u00f1oAlEnemigo = 10f;
+    private Enemigo1 enemigoEnRango;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -143,5 +146,30 @@ public class LogicaPlayer : MonoBehaviour
     public void DejoDeAvanzar()
     {
         avanzoSolo = false;
+    }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.CompareTag("enemigo"))
+        {
+            enemigoEnRango = coll.GetComponent<Enemigo1>();
+        }
+    }
+
+    void OnTriggerExit(Collider coll)
+    {
+        if (coll.CompareTag("enemigo"))
+        {
+            enemigoEnRango = null;
+        }
+    }
+
+    public void GolpearEnemigo()
+    {
+        if (enemigoEnRango != null && estoyAtacando)
+        {
+            enemigoEnRango.RecibirDa\u00f1o(da\u00f1oAlEnemigo);
+            print("Jugador golpe\u00f3 al esqueleto");
+        }
     }
 }

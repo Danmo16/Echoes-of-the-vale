@@ -12,12 +12,41 @@ public class Enemigo1 : MonoBehaviour
     public bool atacando;
 
     public GameObject target;
+    public LogicaBarraVida vidaJugador;
+    public float dañoAlJugador = 10f;
+    public int vidaMaxEnemigo = 50;
+    public int vidaActualEnemigo;
 
-    void onTriggerEnter(Collider coll)
+    void OnTriggerEnter(Collider coll)
     {
-        if(coll.CompareTag("arma"))
+        if(coll.CompareTag("arma") && atacando)
         {
-            print("Daño");
+            print("Esqueleto recibió daño");
+            RecibirDaño(10f);
+        }
+    }
+
+    public void RecibirDaño(float cantidad)
+    {
+        vidaActualEnemigo -= (int)cantidad;
+        if (vidaActualEnemigo <= 0)
+        {
+            Morir();
+        }
+    }
+
+    public void Morir()
+    {
+        print("Esqueleto murió");
+        gameObject.SetActive(false);
+    }
+
+    public void DañarAlJugador()
+    {
+        if (vidaJugador != null)
+        {
+            vidaJugador.RecibirDaño(dañoAlJugador);
+            print("Jugador recibió daño del esqueleto");
         }
     }
 
@@ -26,6 +55,12 @@ public class Enemigo1 : MonoBehaviour
     {
         ani = GetComponent<Animator>();
         target = GameObject.Find("Player");
+        vidaActualEnemigo = vidaMaxEnemigo;
+        
+        if (target != null)
+        {
+            vidaJugador = target.GetComponent<LogicaBarraVida>();
+        }
     }
 
     public void Comportamiento_Enemigo()

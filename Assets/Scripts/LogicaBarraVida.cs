@@ -22,12 +22,17 @@ public class LogicaBarraVida : MonoBehaviour
         if (vidaActual <= 0)
         {
             gameObject.SetActive(false);
-            // Función q se desee
+            // Funciï¿½n q se desee
         }
     }
 
     public void RevisarVida()
     {
         imagenBarraVida.fillAmount = vidaActual / vidaMax;
+    }
+
+    public void RecibirDaÃ±o(float cantidad)
+    {
+        vidaActual -= cantidad;
     }
 }
