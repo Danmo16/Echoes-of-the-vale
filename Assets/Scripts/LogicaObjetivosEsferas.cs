@@ -34,7 +34,7 @@ public class LogicaObjetivosEsferas : MonoBehaviour
 
             if (numDeObjetivos <= 0)
             {
-                textoMision.text = "Completaste la misión";
+                textoMision.text = "Completaste la misión, dirígete al castillo";
                 botonDeMision.SetActive(true);
             }
         }
