@@ -454,9 +454,10 @@ MonoBehaviour:
   avanzoSolo: 0
   impulsoGolpe: 10
   "da\xF1oAlEnemigo": 10
-  audioSource: {fileID: 0}
+  audioSourceMovimiento: {fileID: 0}
+  audioSourceAcciones: {fileID: 0}
   sonidoCaminar: {fileID: 8300000, guid: ada088046394ab648a28f51f8fd87686, type: 3}
-  sonidoCorrer: {fileID: 8300000, guid: 328bd24c05c433e44bb04a375663ab9d, type: 3}
+  sonidoCorrer: {fileID: 8300000, guid: e7529a3d704c90b44b97f8dce1b8c381, type: 3}
   sonidoSaltar: {fileID: 8300000, guid: 6e2a6ccb1e7386f48bfaccba710a1571, type: 3}
   sonidoGolpear: {fileID: 8300000, guid: 034e0b8e2ea92a94896fbcc5bb54d1d4, type: 3}
 --- !u!114 &85691361
@@ -4168,6 +4169,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a681486c498eaf48bd25594270c0bc6, type: 3}
+--- !u!1 &1311838488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1311838490}
+  - component: {fileID: 1311838489}
+  m_Layer: 0
+  m_Name: WindManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1311838489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311838488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34afc54c83b0126429baf03c9b65550d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MyGame.Wind.WindManager
+  windDirection: {x: 1, y: 0}
+  windSize: 5
+  windStrength: 5
+  windSpeed: 5
+--- !u!4 &1311838490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311838488}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 843.4405, y: 0.00003, z: 765.08234}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1344972580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6352,3 +6401,4 @@ SceneRoots:
   - {fileID: 239093112}
   - {fileID: 1536283614}
   - {fileID: 707688173}
+  - {fileID: 1311838490}
