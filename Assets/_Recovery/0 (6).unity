@@ -524,6 +524,7 @@ MonoBehaviour:
   numDeObjetivos: 0
   textoMision: {fileID: 754418265}
   botonDeMision: {fileID: 2023579961}
+  tiempoLimite: 60
 --- !u!114 &85691363
 MonoBehaviour:
   m_ObjectHideFlags: 0

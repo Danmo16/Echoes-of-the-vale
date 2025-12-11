@@ -524,6 +524,7 @@ MonoBehaviour:
   numDeObjetivos: 0
   textoMision: {fileID: 754418265}
   botonDeMision: {fileID: 2023579961}
+  tiempoLimite: 60
 --- !u!114 &85691363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2184,6 +2185,10 @@ PrefabInstance:
     - target: {fileID: 1571042049591659991, guid: 61b3e3801d56a3f429556c96ea2f07d6, type: 3}
       propertyPath: m_Name
       value: Skeleton_110
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571042049591659991, guid: 61b3e3801d56a3f429556c96ea2f07d6, type: 3}
+      propertyPath: m_TagString
+      value: enemigo
       objectReference: {fileID: 0}
     - target: {fileID: 2199628841774520173, guid: 61b3e3801d56a3f429556c96ea2f07d6, type: 3}
       propertyPath: m_LocalScale.x
@@ -4997,7 +5002,7 @@ GameObject:
   - component: {fileID: 1403004109}
   m_Layer: 0
   m_Name: ImageHP
-  m_TagString: Untagged
+  m_TagString: imageHP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

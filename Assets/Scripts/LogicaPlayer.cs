@@ -137,6 +137,9 @@ public class LogicaPlayer : MonoBehaviour
             
             // Reproducir sonido de golpe
             ReproducirSonidoAccion(sonidoGolpear);
+            
+            // Llamar directamente para asegurar que el daño se inflige
+            GolpearEnemigo();
         }
 
         // SALTO
